@@ -1,0 +1,40 @@
+{
+  "name": "zun",
+  "version": "0.0.1",
+  "description": "符合百度前端编码规范的代码格式化工具",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./bin/fecs lib cli test/**/*.spec.js --type=js",
+    "test": "npm run lint && npm run coverage",
+    "coverage": "istanbul cover jasmine-node --captureExceptions test/**/*.spec.js",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/law1024/zun.git"
+  },
+  "bin": {
+    "zun": "./bin/zun"
+  },
+  "keywords": [
+    "jshint",
+    "jslint",
+    "eslint",
+    "csslint",
+    "csshint",
+    "htmllint",
+    "htmlhint",
+    "jsbeautify",
+    "cssbeautify",
+    "htmlbeautify"
+  ],
+  "engines": {
+    "node": ">=0.10"
+  },
+  "author": "law1024",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/law1024/zun/issues"
+  },
+  "homepage": "https://github.com/law1024/zun"
+}
