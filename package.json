@@ -1,6 +1,6 @@
 {
   "name": "zun",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "符合百度前端编码规范的代码格式化工具",
   "main": "index.js",
   "scripts": {
@@ -31,10 +31,45 @@
   "engines": {
     "node": ">=0.10"
   },
-  "author": "law1024",
+  "author": {
+    "name": "law1024"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/law1024/zun/issues"
   },
-  "homepage": "https://github.com/law1024/zun"
+  "homepage": "https://github.com/law1024/zun",
+  "dependencies": {
+    "colors": "^1.1.0",
+    "esformatter": "^0.6.1",
+    "eslint": "^0.20.0",
+    "fixmyjs": "^1.0.3",
+    "js-beautify": "^1.5.5",
+    "map-stream": "0.0.5",
+    "minimist": "^1.1.1",
+    "through2": "^0.6.5",
+    "vinyl-fs": "^1.0.0"
+  },
+  "gitHead": "2449111849cd1ca3300ad7758aa3fac7fd1e1129",
+  "_id": "zun@1.0.1",
+  "_shasum": "9c61d306d137640f1c75ae4938805cb0f65f3c91",
+  "_from": "zun@*",
+  "_npmVersion": "2.7.4",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "law1024",
+    "email": "286519949@qq.com"
+  },
+  "dist": {
+    "shasum": "9c61d306d137640f1c75ae4938805cb0f65f3c91",
+    "tarball": "http://registry.npmjs.org/zun/-/zun-1.0.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "law1024",
+      "email": "286519949@qq.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/zun/-/zun-1.0.1.tgz"
 }
