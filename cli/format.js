@@ -16,7 +16,31 @@ function format(filter, handle, options) {
     .pipe(vfs.dest(dir));
 }
 
+function ignoreCamelcase(options) {
+    var fileList = options.icc.split(',');
+    var dir = './';
+    if (options.directory === true) {
+        dir = './output';
+    } else if (!!options.directory) {
+        dir = options.directory;
+    }
+
+    vfs
+    .src(fileList)
+    .pipe(require('./icc').exec())
+    .pipe(vfs.dest(dir));
+}
+
 function getFileList(options, callback) {
+    //需要强制忽略变量命名规范的文件
+    if (options.icc) {
+        if (options.icc === true) {
+            console.log('please assign the files');
+        } else {
+            ignoreCamelcase(options);
+        }
+        return;
+    }
     passer.getFiles(function(files) {
         var res = [];
         if (options.nomodify) {

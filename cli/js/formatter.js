@@ -31,6 +31,7 @@ exports.exec = function(options) {
             console.log('success'.green, file.path);
         } catch (e) {
             console.log('error'.red, file.path);
+            console.error(e);
         } finally {
             file.base = process.cwd();
             file.contents = new Buffer(content);
