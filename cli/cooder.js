@@ -1,8 +1,28 @@
 var fs         = require('fs');
-var codeReview = require('code-review');
+var codereview = require('../lib/code-review');
 
+function setCooderOptions(options) {
+    var data = {};
+    //--subject "subject" --owner "owner" --reviewers "reviewers" --description "description" --token "token" --sendmail "default false"
+    if (options.subject) {
+        data.subject = options.subject;
+    }
+    if (options.owner) {
+        data.owner = options.owner;
+    }
+    if (options.reviewers) {
+        data.reviewers = options.reviewers;
+    }
+    if (options.token) {
+        data.token = options.token;
+    }
+    if (options.sendmail) {
+        data.send_mail = options.sendmail;
+    }
+    return data;
+}
 
-exports.run = function() {
+exports.run = function(options) {
     var path = './zun-conf.json';
     fs.exists(path, function(exists) {
         if (exists) {
@@ -14,12 +34,14 @@ exports.run = function() {
                 data = JSON.parse(data.toString());
                 if (data.cooder) {
                     //有配置代码提交code review信息
-                    codeReview(data.cooder);
+                    codereview(data.cooder);
                 } else {
-                    console.log('please add cooder information');
+                    codereview(setCooderOptions(options));
                 }
 
             });
+        } else {
+            codereview(setCooderOptions(options));
         }
     });
 }
