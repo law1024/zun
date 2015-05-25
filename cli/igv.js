@@ -1,15 +1,21 @@
+/**
+ * 生成一个对全局变量豁免的注释，全局变量需要自己输入
+ */
 var through = require('through2');
 var colors  = require('colors');
 var util    = require('./util');
 
-exports.exec = function(options) {
+exports.exec = function(opts) {
     return through({
         objectMode: true
     },
+
     function(file, enc, cb) {
         var content = file.contents.toString(enc);
-        var key = '/*eslint-disable fecs-camelcase*/';
-        if (~~content.indexOf(key)) {
+        var variate = opts.variate.split(',').join(' ');
+
+        var key = '/*global '+ variate +'*/';
+        if (~~content.indexOf('/*global ')) {
             content = key + '\n' + content;
         }
         file.base = process.cwd();

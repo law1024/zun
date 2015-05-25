@@ -4,6 +4,7 @@ var fixmyjs     = require('fixmyjs');
 var esformatter = require('esformatter');
 var colors      = require('colors');
 
+var util        = require('../util');
 var conf        = require('./conf');
 
 exports.format = function(content) {
@@ -28,9 +29,9 @@ exports.exec = function(options) {
         var content = file.contents.toString(enc);
         try {
             content = exports.format(content);
-            console.log('success'.green, file.path);
+            console.log('success'.green, util.relativePath(file.path));
         } catch (e) {
-            console.log('error'.red, file.path);
+            console.log('error'.red, util.relativePath(file.path));
             console.error(e);
         } finally {
             file.base = process.cwd();

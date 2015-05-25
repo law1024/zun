@@ -1,47 +1,77 @@
 var fs         = require('fs');
+var path       = require('path');
+var init       = require('./init');
+var util       = require('./util');
 var codereview = require('../lib/code-review');
 
-function setCooderOptions(options) {
-    var data = {};
-    //--subject "subject" --owner "owner" --reviewers "reviewers" --description "description" --token "token" --sendmail "default false"
-    if (options.subject) {
-        data.subject = options.subject;
+//获取token
+function getToken() {
+    //找到global文件
+    var file = path.join(__dirname, '../lib/', 'global.json');
+    var data = null;
+    try {
+        data = fs.readFileSync(file);
+        data = JSON.parse(data.toString());
+        if (data.token) {
+            return data.token;
+        }
+        setTimeout(function() {
+            console.log([
+                'no token found.',
+                'please use zun config --global token "your_token"'
+            ].join(' '));
+        });
+    } catch (e) {
+        console.error('error happended! >_<');
     }
-    if (options.owner) {
-        data.owner = options.owner;
-    }
-    if (options.reviewers) {
-        data.reviewers = options.reviewers;
-    }
-    if (options.token) {
-        data.token = options.token;
-    }
-    if (options.sendmail) {
-        data.send_mail = options.sendmail;
-    }
-    return data;
+    return '';
 }
-
-exports.run = function(options) {
-    var path = './zun-conf.json';
-    fs.exists(path, function(exists) {
+//cooder
+exports.run  = function(options) {
+    var p = './zun-conf.json';
+    fs.exists(p, function(exists) {
         if (exists) {
-            fs.readFile(path, function(err, data) {
+            fs.readFile(p, function(err, data) {
                 if (err) {
                     console.log('read zun conf error');
                     return;
                 }
-                data = JSON.parse(data.toString());
-                if (data.cooder) {
-                    //有配置代码提交code review信息
-                    codereview(data.cooder);
+                try {
+                    data = JSON.parse(data.toString());
+                } catch (e) {
+                    console.error('parse zun conf data error');
+                    return;
+                }
+                if (!data.cooder) {
+                    //data.cooder不存在
+                    init.run(function(answer) {
+                        var token = getToken();
+                        if (!token) {
+                            return;
+                        }
+                        answer.token = token;
+                        codereview(answer);
+                    });
                 } else {
-                    codereview(setCooderOptions(options));
+                    var token = getToken();
+                    if (!token) {
+                        return;
+                    }
+                    data.cooder.token = token;
+                    codereview(data.cooder);
                 }
 
             });
         } else {
-            codereview(setCooderOptions(options));
+            //文件不存在，引导用户依次填写
+            init.run(function(answer) {
+                var token = getToken();
+                if (!token) {
+                    return;
+                }
+                answer.token = token;
+                codereview(answer);
+            });
         }
     });
 }

@@ -52,9 +52,9 @@ exports.exec = function(options) {
         var content = file.contents.toString(enc);
         try {
             content = exports.format(content, conf.hs);
-            console.log('success'.green, file.path);
+            console.log('success'.green, util.relativePath(file.path));
         } catch (e) {
-            console.error('error'.red, file.path);
+            console.error('error'.red, util.relativePath(file.path));
             console.error(e);
         } finally {
             file.base     = process.cwd();
