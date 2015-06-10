@@ -71,7 +71,6 @@ function group(opts, property, cmd) {
     var pathList = [];
     //首先过滤一遍文件类型
     var res  = [];
-
     fileList.forEach(function(file) {
         //如果文件类型不合法
         if (!util.isSuitable(file)) {
@@ -89,7 +88,6 @@ function group(opts, property, cmd) {
     //对res进行遍历
     var mult = [];
     var none = [];
-
     for (var f in res) {
         if (!res.hasOwnProperty(f)) {
             continue;

@@ -5,7 +5,8 @@
     "fs": {
         "indent": 4,
         "escapeless": true,
-        "quotmark": "single"
+        "quotmark": "single",
+        "multivar": true
     },
     "er": {
         "indent": {

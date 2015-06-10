@@ -103,7 +103,6 @@ var util = {
         return '.' + path.slice(this.normalization(process.cwd()).length);
     },
 
-
     // 文件名和文件路径进行匹配
     matchFile: function(fileList, pathList) {
         var i = 0,
@@ -117,15 +116,14 @@ var util = {
             for (i = 0; i < l; i ++) {
                 var path = pathList[i];
                 var last = path.length - file.length;
-
-                if (path.indexOf(file) === last) {
+                //对字符串长度进行限制
+                if (last >= 0 && path.indexOf(file) === last) {
                     res[file].push(path);
                 }
             }
         });
         return res;
     },
-
     //输入
     input: (function() {
         
