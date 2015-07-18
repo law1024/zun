@@ -16,7 +16,8 @@ exports.format = function(content) {
     content = esformatter.format(content, conf.er);
     //在行注释后添加一个空格
     //去除多次format后可能造成多个空格的问题
-    content = content.replace(/\/\/\s*/g, '// ');
+    // 防止误伤字符串里的//
+    //content = content.replace(/\/\/\s*/g, '// ');
     //在结尾添加空行
     content = content.replace(/[\r\n]*$/, '\n');
     return content;
